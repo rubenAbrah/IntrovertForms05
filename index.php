@@ -15,62 +15,7 @@
 <body>
     <?     
     require_once($_SERVER['DOCUMENT_ROOT'] . '/introvert_save.php');
-    require_once(__DIR__ . '/Introvert/autoload.php');
-    Introvert\Configuration::getDefaultConfiguration()->setHost('https://api.s1.yadrocrm.ru/tmp');
-    Introvert\Configuration::getDefaultConfiguration()->setApiKey('key', '23bc075b710da43f0ffb50ff9e889aed');
-
-
-    $api = new Introvert\ApiClient();
-
-    try {
-        $statuses = $api->account->statuses();
-        $pipline_statuses = $statuses['result'];
-        function sort_statuses($a, $b)
-        {
-            if ($a['sort'] > $b['sort']) {
-                return 1;
-            } elseif ($a['sort'] < $b['sort']) {
-                return -1;
-            }
-            return 0;
-        }
-        usort($pipline_statuses, 'sort_statuses');
-
-        $first_form_status =   $pipline_statuses[0]['id'];
-        $second_form_status =  $pipline_statuses[1]['id'];
- 
-        $usersList = $api->yadro->getUsers();
-
-        $firstForm_users = array_slice($usersList['result'], 0, 3);
-        $secondForm_users = array_slice($usersList['result'], 3, 3);
-
-        $first_form_users_ids = getIds($firstForm_users);
-        $second_form_users_ids =  getIds($secondForm_users);
-
-     
-         
-    } catch (Exception $e) {
-        echo 'Exception when calling AccountApi->allStatuses: ', $e->getMessage(), PHP_EOL;
-    }  
-
-
-
-
-
-
-
-       getIds($secondForm_users);
-        function getIds($userArr)
-        { 
-            $idsArr = array();
-            foreach ($userArr as   $user) {
-                $idsArr[] = $user['email'];
-            }
-            return implode(";", $idsArr);
-        }
-
-
-?>
+     ?>
  
 
     <wrapper>
@@ -85,8 +30,8 @@
                 <input type="text" name="email" id="email">
                 <label for="comment">Ваш комментарий</label>
                 <textarea type="text" name="comment" id="comment"></textarea>
-                <input type="hidden" name="status" value="<?= $first_form_status ?>" id="status">
-                <input type="hidden" name="intr_group" value="<?= $first_form_users_ids ?>" id="intr_group">
+                <input type="hidden" name="status" value="42497374" id="status">
+                <input type="hidden" name="intr_group" value="bbb@bb.ru; deemird2@yandex.ru; olgamooha2212@mail.com" id="intr_group">
                 <button>создать контакт</button>
             </form>
         </section>
@@ -101,14 +46,15 @@
                 <input type="text" name="email" id="email">
                 <label for="comment">Ваш комментарий</label>
                 <textarea type="text" name="comment" id="comment">  </textarea>
-                <input type="hidden" name="status" value="<?= $second_form_status ?>" id="status">
-                <input type="hidden" name="intr_group" value='"<?= $second_form_users_ids?>"' id="intr_group">
+                <input type="hidden" name="status" value="20715778" id="status">
+                <input type="hidden" name="intr_group" value="testpers3@mail.ru; alphaprint30@gmail.com; group12@mail.ru" id="intr_group">
                 <button>создать контакт</button>
             </form>
         </section>
-    </wrapper> 
-    
-    
+    </wrapper>
+
+ 
+
 
     <script type="text/javascript">
         (function(d, w, k) {
